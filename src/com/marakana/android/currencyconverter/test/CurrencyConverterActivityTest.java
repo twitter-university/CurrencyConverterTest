@@ -1,5 +1,7 @@
 package com.marakana.android.currencyconverter.test;
 
+import junit.framework.Assert;
+
 import android.content.Context;
 import android.test.ActivityInstrumentationTestCase2;
 import android.test.TouchUtils;
@@ -65,25 +67,25 @@ public class CurrencyConverterActivityTest extends
 	}
 
 	public void testPreConditions() {
-		super.assertNotNull(this.fromCurrency);
-		super.assertNotNull(this.fromCurrency.getOnItemSelectedListener());
-		super.assertEquals(currencies.length, this.fromCurrency.getAdapter()
+		Assert.assertNotNull(this.fromCurrency);
+		Assert.assertNotNull(this.fromCurrency.getOnItemSelectedListener());
+		Assert.assertEquals(currencies.length, this.fromCurrency.getAdapter()
 				.getCount());
 
-		super.assertNotNull(this.toCurrency);
-		super.assertNotNull(this.toCurrency.getOnItemSelectedListener());
-		super.assertEquals(currencies.length, this.toCurrency.getAdapter()
+		Assert.assertNotNull(this.toCurrency);
+		Assert.assertNotNull(this.toCurrency.getOnItemSelectedListener());
+		Assert.assertEquals(currencies.length, this.toCurrency.getAdapter()
 				.getCount());
 
-		super.assertNotNull(this.inputAmount);
-		super.assertEquals("1", this.inputAmount.getText().toString());
+		Assert.assertNotNull(this.inputAmount);
+		Assert.assertEquals("1", this.inputAmount.getText().toString());
 
-		super.assertNotNull(this.outputAmount);
+		Assert.assertNotNull(this.outputAmount);
 
-		super.assertNotNull(this.convert);
-		super.assertNotNull(this.reverseCurrencies);
-		super.assertNotNull(this.clearInput);
-		super.assertNotNull(this.copyResult);
+		Assert.assertNotNull(this.convert);
+		Assert.assertNotNull(this.reverseCurrencies);
+		Assert.assertNotNull(this.clearInput);
+		Assert.assertNotNull(this.copyResult);
 	}
 
 	public void testViewsVisible() {
@@ -105,9 +107,9 @@ public class CurrencyConverterActivityTest extends
 		this.inputAmount.setText("123");
 		this.activity.finish();
 		this.loadActivity();
-		super.assertEquals(1, this.fromCurrency.getSelectedItemPosition());
-		super.assertEquals(2, this.toCurrency.getSelectedItemPosition());
-		super.assertEquals("123", this.inputAmount.getText().toString());
+		Assert.assertEquals(1, this.fromCurrency.getSelectedItemPosition());
+		Assert.assertEquals(2, this.toCurrency.getSelectedItemPosition());
+		Assert.assertEquals("123", this.inputAmount.getText().toString());
 	}
 
 	public void testCopyResult() {
@@ -127,7 +129,7 @@ public class CurrencyConverterActivityTest extends
 			super.getInstrumentation().waitForIdleSync();
 			TouchUtils.clickView(this, this.copyResult);
 			super.getInstrumentation().waitForIdleSync();
-			super.assertEquals("678", clipboard.getText().toString());
+			Assert.assertEquals("678", clipboard.getText().toString());
 		} finally {
 			clipboard.setText(current);
 		}
@@ -162,10 +164,11 @@ public class CurrencyConverterActivityTest extends
 		assertEquals(toCurrencyPosition, this.fromCurrency.getSelectedItemPosition());
 		assertEquals(fromCurrencyPosition, this.toCurrency.getSelectedItemPosition());
 	}
-	
+
 	private void makeSelection(final Spinner spinner, int position) {
 		this.activity.runOnUiThread(new Runnable() {
-			public void run() {
+			@Override
+            public void run() {
 				spinner.requestFocus();
 				spinner.setSelection(0);
 			}
