@@ -113,6 +113,10 @@ public class CurrencyConverterActivityTest extends
 		Assert.assertEquals("123", this.inputAmount.getText().toString());
 	}
 
+    /*
+     * I have seen this test fail on a Froyo emulator
+     * because the sendKeys keystrokes are duplicated
+     */
 	public void testCopyResult() {
 		ClipboardManager clipboard = (ClipboardManager) activity
 				.getSystemService(Context.CLIPBOARD_SERVICE);
@@ -132,12 +136,16 @@ public class CurrencyConverterActivityTest extends
 
 			String result = clipboard.getText().toString();
 			Log.d("###testCopyResult", result);
-			Assert.assertEquals("667788", result);  // keypresses are duplicated!
+			Assert.assertEquals("678", result);
 		} finally {
 			clipboard.setText(current);
 		}
 	}
 
+    /*
+     * I have seen this test fail on a Froyo emulator
+     * because the sendKeys keystrokes are duplicated
+     */
 	public void testConversion() {
 		int fromCurrencyPosition = this.currencies.length / 2;
 		int toCurrencyPosition = this.currencies.length / 4;
@@ -155,7 +163,7 @@ public class CurrencyConverterActivityTest extends
 				this.currencies[toCurrencyPosition]);
 		String result = this.outputAmount.getText().toString();
 		Log.d("###testConversion", result);
-		assertTrue(Double.parseDouble(result) - (rate * 112233) < 1);  // keypresses are duplicated!
+		assertTrue(Double.parseDouble(result) - (rate * 123) < 1);
 	}
 
 	public void testReverseCurrencies() {
