@@ -2,12 +2,10 @@ package com.marakana.android.currencyconverter.test;
 
 import junit.framework.Assert;
 
-import android.content.Context;
 import android.test.ActivityInstrumentationTestCase2;
 import android.test.TouchUtils;
 import android.test.UiThreadTest;
 import android.test.ViewAsserts;
-import android.text.ClipboardManager;
 import android.view.KeyEvent;
 import android.view.View;
 import android.widget.EditText;
@@ -112,48 +110,50 @@ public class CurrencyConverterActivityTest extends
 		Assert.assertEquals("123", this.inputAmount.getText().toString());
 	}
 
-	public void testCopyResult() {
-		ClipboardManager clipboard = (ClipboardManager) activity
-				.getSystemService(Context.CLIPBOARD_SERVICE);
-		CharSequence current = clipboard.getText();
-		try {
-			clipboard.setText("12345");
-			TouchUtils.clickView(this, this.clearInput);
-			super.getInstrumentation().waitForIdleSync();
-			TouchUtils.tapView(this, this.inputAmount);
-			super.getInstrumentation().waitForIdleSync();
-			super.sendKeys(KeyEvent.KEYCODE_6, KeyEvent.KEYCODE_7,
-					KeyEvent.KEYCODE_8);
-			super.getInstrumentation().waitForIdleSync();
-			TouchUtils.clickView(this, this.convert);
-			super.getInstrumentation().waitForIdleSync();
-			TouchUtils.clickView(this, this.copyResult);
-			super.getInstrumentation().waitForIdleSync();
-			Assert.assertEquals("678", clipboard.getText().toString());
-		} finally {
-			clipboard.setText(current);
-		}
-	}
+//	public void testCopyResult() {
+//		ClipboardManager clipboard = (ClipboardManager) activity
+//				.getSystemService(Context.CLIPBOARD_SERVICE);
+//		CharSequence current = clipboard.getText();
+//		try {
+//			clipboard.setText("12345");
+//			TouchUtils.clickView(this, this.clearInput);
+//			super.getInstrumentation().waitForIdleSync();
+//			TouchUtils.tapView(this, this.inputAmount);
+//			super.getInstrumentation().waitForIdleSync();
+//			super.sendKeys(KeyEvent.KEYCODE_6, KeyEvent.KEYCODE_7, KeyEvent.KEYCODE_8);
+//			super.getInstrumentation().waitForIdleSync();
+//			TouchUtils.clickView(this, this.convert);
+//			super.getInstrumentation().waitForIdleSync();
+//			TouchUtils.clickView(this, this.copyResult);
+//			super.getInstrumentation().waitForIdleSync();
+//
+//			String result = clipboard.getText().toString();
+//			Log.d("###testCopyResult", result);
+//			Assert.assertEquals("678", result);
+//		} finally {
+//			clipboard.setText(current);
+//		}
+//	}
 
-	public void testConversion() {
-		int fromCurrencyPosition = this.currencies.length / 2;
-		int toCurrencyPosition = this.currencies.length / 4;
-		this.makeSelection(fromCurrency, fromCurrencyPosition);
-		this.makeSelection(toCurrency, toCurrencyPosition);
-		TouchUtils.clickView(this, this.clearInput);
-		super.getInstrumentation().waitForIdleSync();
-		TouchUtils.tapView(this, this.inputAmount);
-		super.sendKeys(KeyEvent.KEYCODE_1, KeyEvent.KEYCODE_2,
-				KeyEvent.KEYCODE_3);
-		super.getInstrumentation().waitForIdleSync();
-		TouchUtils.clickView(this, this.convert);
-		super.getInstrumentation().waitForIdleSync();
-		double rate = this.currencyConverter.getConversionRate(
-				this.currencies[fromCurrencyPosition],
-				this.currencies[toCurrencyPosition]);
-		assertEquals(rate * 123,
-				Double.parseDouble(this.outputAmount.getText().toString()), 5);
-	}
+//	public void testConversion() {
+//		int fromCurrencyPosition = this.currencies.length / 2;
+//		int toCurrencyPosition = this.currencies.length / 4;
+//		this.makeSelection(fromCurrency, fromCurrencyPosition);
+//		this.makeSelection(toCurrency, toCurrencyPosition);
+//		TouchUtils.clickView(this, this.clearInput);
+//		super.getInstrumentation().waitForIdleSync();
+//		TouchUtils.tapView(this, this.inputAmount);
+//		super.sendKeys(KeyEvent.KEYCODE_1, KeyEvent.KEYCODE_2, KeyEvent.KEYCODE_3);
+//		super.getInstrumentation().waitForIdleSync();
+//		TouchUtils.clickView(this, this.convert);
+//		super.getInstrumentation().waitForIdleSync();
+//		double rate = this.currencyConverter.getConversionRate(
+//				this.currencies[fromCurrencyPosition],
+//				this.currencies[toCurrencyPosition]);
+//		String result = this.outputAmount.getText().toString();
+//		Log.d("###testConversion", result);
+//		assertEquals(rate * 123, Double.parseDouble(result), 5);
+//	}
 
 	public void testReverseCurrencies() {
 		int fromCurrencyPosition = this.currencies.length / 2;
