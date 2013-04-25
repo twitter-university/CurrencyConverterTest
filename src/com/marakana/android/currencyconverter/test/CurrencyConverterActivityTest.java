@@ -20,6 +20,14 @@ import com.marakana.android.currencyconverter.CurrencyConverterActivity;
 import com.marakana.android.currencyconverter.GoogleCurrencyConverter;
 import com.marakana.android.currencyconverter.R;
 
+/**
+ * To run on command line: adb shell am instrument -w
+ * com.marakana.android.currencyconverter
+ * .test/android.test.InstrumentationTestRunner
+ * 
+ * @author marko
+ * 
+ */
 public class CurrencyConverterActivityTest extends
 		ActivityInstrumentationTestCase2<CurrencyConverterActivity> {
 
@@ -113,10 +121,10 @@ public class CurrencyConverterActivityTest extends
 		Assert.assertEquals("123", this.inputAmount.getText().toString());
 	}
 
-    /*
-     * I have seen this test fail on a Froyo emulator
-     * because the sendKeys keystrokes are duplicated
-     */
+	/*
+	 * I have seen this test fail on a Froyo emulator because the sendKeys
+	 * keystrokes are duplicated
+	 */
 	public void testCopyResult() {
 		ClipboardManager clipboard = (ClipboardManager) activity
 				.getSystemService(Context.CLIPBOARD_SERVICE);
@@ -127,7 +135,8 @@ public class CurrencyConverterActivityTest extends
 			super.getInstrumentation().waitForIdleSync();
 			TouchUtils.tapView(this, this.inputAmount);
 			super.getInstrumentation().waitForIdleSync();
-			super.sendKeys(KeyEvent.KEYCODE_6, KeyEvent.KEYCODE_7, KeyEvent.KEYCODE_8);
+			super.sendKeys(KeyEvent.KEYCODE_6, KeyEvent.KEYCODE_7,
+					KeyEvent.KEYCODE_8);
 			super.getInstrumentation().waitForIdleSync();
 			TouchUtils.clickView(this, this.convert);
 			super.getInstrumentation().waitForIdleSync();
@@ -142,10 +151,10 @@ public class CurrencyConverterActivityTest extends
 		}
 	}
 
-    /*
-     * I have seen this test fail on a Froyo emulator
-     * because the sendKeys keystrokes are duplicated
-     */
+	/*
+	 * I have seen this test fail on a Froyo emulator because the sendKeys
+	 * keystrokes are duplicated
+	 */
 	public void testConversion() {
 		int fromCurrencyPosition = this.currencies.length / 2;
 		int toCurrencyPosition = this.currencies.length / 4;
@@ -154,7 +163,8 @@ public class CurrencyConverterActivityTest extends
 		TouchUtils.clickView(this, this.clearInput);
 		super.getInstrumentation().waitForIdleSync();
 		TouchUtils.tapView(this, this.inputAmount);
-		super.sendKeys(KeyEvent.KEYCODE_1, KeyEvent.KEYCODE_2, KeyEvent.KEYCODE_3);
+		super.sendKeys(KeyEvent.KEYCODE_1, KeyEvent.KEYCODE_2,
+				KeyEvent.KEYCODE_3);
 		super.getInstrumentation().waitForIdleSync();
 		TouchUtils.clickView(this, this.convert);
 		super.getInstrumentation().waitForIdleSync();
@@ -172,14 +182,16 @@ public class CurrencyConverterActivityTest extends
 		this.makeSelection(fromCurrency, fromCurrencyPosition);
 		this.makeSelection(toCurrency, toCurrencyPosition);
 		TouchUtils.clickView(this, this.reverseCurrencies);
-		assertEquals(toCurrencyPosition, this.fromCurrency.getSelectedItemPosition());
-		assertEquals(fromCurrencyPosition, this.toCurrency.getSelectedItemPosition());
+		assertEquals(toCurrencyPosition,
+				this.fromCurrency.getSelectedItemPosition());
+		assertEquals(fromCurrencyPosition,
+				this.toCurrency.getSelectedItemPosition());
 	}
 
 	private void makeSelection(final Spinner spinner, int position) {
 		this.activity.runOnUiThread(new Runnable() {
 			@Override
-            public void run() {
+			public void run() {
 				spinner.requestFocus();
 				spinner.setSelection(0);
 			}
